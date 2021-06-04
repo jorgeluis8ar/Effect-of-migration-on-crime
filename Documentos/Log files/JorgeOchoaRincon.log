@@ -1,0 +1,1764 @@
+
+. use "/Users/jorgeochoa/Downloads/PANEL_CARACTERISTICAS_GENERALES(2020).dta", clear
+file /Users/jorgeochoa/Downloads/PANEL_CARACTERISTICAS_GENERALES(2020).dta not found
+r(601);
+
+end of do-file
+
+r(601);
+
+. do "/var/folders/9v/ghy23jmd25x2t369l0tm7xk40000gn/T//SD32399.000000"
+
+. clear all
+
+. set more off, perm
+(set more preference recorded)
+
+. cls
+
+. 
+. cd "~/OneDrive - Universidad de los andes/PEG/Econometria avanzada/Proyecto/Bases de datos"
+/Users/jorgeochoa/OneDrive - Universidad de los andes/PEG/Econometria avanzada/Proyecto/Bases de datos
+
+. cap log using "dta/resultados/JorgeOchoaRincon.log", replace
+
+. use "/Users/jorgeochoa/Downloads/PANEL_CARACTERISTICAS_GENERALES(2020).dta", clear
+file /Users/jorgeochoa/Downloads/PANEL_CARACTERISTICAS_GENERALES(2020).dta not found
+r(601);
+
+end of do-file
+
+r(601);
+
+. do "/var/folders/9v/ghy23jmd25x2t369l0tm7xk40000gn/T//SD32399.000000"
+
+. clear all
+
+. set more off, perm
+(set more preference recorded)
+
+. cls
+
+. 
+. cd "~/OneDrive - Universidad de los andes/PEG/Econometria avanzada/Proyecto/Bases de datos"
+/Users/jorgeochoa/OneDrive - Universidad de los andes/PEG/Econometria avanzada/Proyecto/Bases de datos
+
+. cap log using "dta/resultados/JorgeOchoaRincon.log", replace
+
+. use "/Users/jorgeochoa/Downloads/PANEL_CARACTERISTICAS_GENERALES(2020).dta", clear
+file /Users/jorgeochoa/Downloads/PANEL_CARACTERISTICAS_GENERALES(2020).dta not found
+r(601);
+
+end of do-file
+
+r(601);
+
+. do "/var/folders/9v/ghy23jmd25x2t369l0tm7xk40000gn/T//SD32399.000000"
+
+. clear all
+
+. set more off, perm
+(set more preference recorded)
+
+. cls
+
+. 
+. cd "~/OneDrive - Universidad de los andes/PEG/Econometria avanzada/Proyecto/Bases de datos"
+/Users/jorgeochoa/OneDrive - Universidad de los andes/PEG/Econometria avanzada/Proyecto/Bases de datos
+
+. cap log using "dta/resultados/JorgeOchoaRincon.log", replace
+
+. use "/Users/jorgeochoa/Downloads/PANEL_CARACTERISTICAS_GENERALES(2020).dta", clear
+
+. 
+. keep coddepto codmpio  depto municipio ano pobl_tot altura discapital disbogota pib_agricola pib_industria pib_servicios pib_total gini pobreza nbi* IPM ipm_serv_pinf_p ipm_tdep_p ipm_accsalud_p gpc 
+
+. 
+. 
+. keep if ano >= 2000
+(7,854 observations deleted)
+
+. by municipio, sort : egen float gpc_2005 = mean(gpc)
+(1,393 missing values generated)
+
+. by municipio, sort : egen float gini_2005 = mean(gini)
+(1,393 missing values generated)
+
+. by municipio, sort : egen float pobre_2005 = mean(pobreza)
+(1,393 missing values generated)
+
+. by municipio, sort : egen float nbi_2005 = mean(nbi) if ano >2000&ano<2015
+(6,731 missing values generated)
+
+. by municipio, sort : egen float nbi_c_2005 = mean(nbicabecera) if ano<2018
+(2,621 missing values generated)
+
+. by municipio, sort : egen float nbi_r_2005 = mean(nbiresto) if ano < 2018
+(2,369 missing values generated)
+
+. by municipio, sort : egen float ipm_2005 = mean(IPM) if ano < 2018
+(2,405 missing values generated)
+
+. by municipio, sort : egen float ipm_pinf_2005 = mean(ipm_serv_pinf_p) if ano < 2018
+(2,405 missing values generated)
+
+. by municipio, sort : egen float ipm_tdep_2005 = mean(ipm_tdep_p) if ano < 2018
+(2,405 missing values generated)
+
+. by municipio, sort : egen float ipm_acsalud_2005 = mean(ipm_accsalud_p) if ano < 2018
+(2,405 missing values generated)
+
+. sort ano
+
+. 
+. 
+. keep coddepto codmpio depto municipio ano pobl_tot altura discapital disbogota pib_agricola pib_industria pib_servicios pib_total *_2005 pib_*
+
+. 
+. foreach x in nbi_2005 nbi_c_2005 nbi_r_2005 ipm_2005 ipm_pinf_2005 ipm_tdep_2005 ipm_acsalud_2005 {
+  2. 
+.         egen `x'_2 = mean(`x'), by(municipio) 
+  3. 
+. }
+(17 missing values generated)
+(436 missing values generated)
+(156 missing values generated)
+(193 missing values generated)
+(193 missing values generated)
+(193 missing values generated)
+(193 missing values generated)
+
+. 
+. drop nbi_2005 nbi_c_2005 nbi_r_2005 ipm_2005 ipm_pinf_2005 ipm_tdep_2005 ipm_acsalud_2005
+
+. 
+. rename (nbi_2005_2 nbi_c_2005_2 nbi_r_2005_2 ipm_2005_2 ipm_pinf_2005_2 ipm_tdep_2005_2 ipm_acsalud_2005_2) (nbi_2005 nbi_c_2005 nbi_r_2005 ipm_2005 ipm_pinf_2005 ipm_tdep_2005 ipm_acsalud_2005)
+
+. 
+. gen gdp_agri = pib_agricola if ano ==2009
+(21,342 missing values generated)
+
+. gen gdp_indu = pib_industria if ano ==2009
+(21,342 missing values generated)
+
+. gen gdp_serv = pib_servicios if ano ==2009
+(21,342 missing values generated)
+
+. gen gdp_tota = pib_total if ano ==2009
+(21,342 missing values generated)
+
+. 
+. egen gdp_agri_2 = mean(gdp_agri), by(municipio)
+(493 missing values generated)
+
+. egen gdp_indu_2 = mean(gdp_indu), by(municipio)
+(493 missing values generated)
+
+. egen gdp_serv_2 = mean(gdp_serv), by(municipio)
+(493 missing values generated)
+
+. egen gdp_tota_2 = mean(gdp_tota), by(municipio)
+(493 missing values generated)
+
+. 
+. drop gdp_agri gdp_indu gdp_serv gdp_tota pib_*
+
+. 
+. rename (gdp_agri_2 gdp_indu_2 gdp_serv_2 gdp_tota_2) (gdp_agri gdp_indu gdp_serv gdp_tota)
+
+. 
+. tostring codmpio,gen(cod_dane)
+cod_dane generated as str5
+
+. gen chara = length(cod_dane)
+
+. replace cod_dane = "0" + cod_dane if chara == 4
+(2,960 real changes made)
+
+. drop chara
+
+. drop if ano <2012
+(13,464 observations deleted)
+
+. 
+. label var gpc_2005 "Gasto per cápita municipa - 2005"
+
+. label var gini_2005 "Índice de gini municipal - 2005"
+
+. label var pobre_2005 "Incidencia de la pobreza municipal - 2005"
+
+. label var nbi_2005 "NBI - Necesidades básicas Insatisfechas  - 2005"
+
+. label var nbi_c_2005 "NBI - Censo 2005 Cabecera municipal"
+
+. label var nbi_r_2005 "NBI - Censo 2005 rural disperso (resto)"
+
+. label var ipm_2005 "índice de pobreza multidimensional total - 2005"
+
+. label var ipm_pinf_2005 "ipm acceso servicios de primera infancia: porcentaje de población en privación"
+
+. label var ipm_tdep_2005 "ipm tasa dependencia económica: porcertanje de la población en privación"
+
+. label var ipm_acsalud_2005 "ipm accesos salud dada necesidad: porcentaje población en privación"
+
+. label var gdp_agri "Participación agricultura en el PIB total municipal"
+
+. label var gdp_indu "Participación industria en el PIB total municipal"
+
+. label var gdp_serv "Participación servicios en el PIB total municipal"
+
+. label var gdp_tota "PIB total municipal"
+
+. 
+. save "dta/carac_gene_cede.dta",replace
+file dta/carac_gene_cede.dta saved
+
+. 
+. cls
+
+. use "/Users/jorgeochoa/Downloads/PANEL_CONFLICTO_Y_VIOLENCIA(2020).dta",clear
+
+. 
+. keep codmpio ano terrorismot homicidios
+
+. 
+. tostring codmpio,gen(cod_dane)
+cod_dane generated as str5
+
+. gen chara = length(cod_dane)
+
+. replace cod_dane = "0" + cod_dane if chara == 4
+(3,996 real changes made)
+
+. drop chara
+
+. 
+. bysort codmpio (ano) : gen cumu_terro = sum(terrorismot)
+
+. bysort codmpio (ano) : gen cumu_homic = sum(homicidios)
+
+. 
+. by codmpio, sort : egen float terrorismot_2003_2010 = mean(terrorismot) if ano < 2011&ano>2002
+(21,373 missing values generated)
+
+. by codmpio, sort : egen float homicidios_2003_2010 = mean(homicidios) if ano < 2011&ano>2002
+(21,373 missing values generated)
+
+. 
+. egen terrorismot_2003_2010_2 = mean(terrorismot_2003_2010), by(codmpio) 
+(36 missing values generated)
+
+. egen homicidios_2003_2010_2 = mean(homicidios_2003_2010), by(codmpio) 
+(36 missing values generated)
+
+. 
+. drop terrorismot_2003_2010 homicidios_2003_2010
+
+. rename (terrorismot_2003_2010_2 homicidios_2003_2010_2) (terrorismot_2003_2010 homicidios_2003_2010)
+
+. 
+. drop if ano <2012
+(21,364 observations deleted)
+
+. 
+. label var terrorismot_2003_2010 "Promedio actos de terrorismo 2003-2010"
+
+. label var homicidios_2003_2010 "Promedio de homicidios 2003-2010"
+
+. label var cumu_terro "Hechos acumulados de terrorismo 2003 ->"
+
+. label var cumu_homic "Hechos acumulados de homicidios 2003 ->"
+
+. 
+. save "dta/confl_violencia_cede.dta",replace
+file dta/confl_violencia_cede.dta saved
+
+. 
+. cls
+
+. use "/Users/jorgeochoa/Downloads/PANEL_BUEN_GOBIERNO(2019).dta",clear
+
+. 
+. keep cod ano y_total g_total indesarrollo_dep indesarrollo_mun inv_total SGP_propgeneral 
+
+. 
+. 
+. tostring codmpio,gen(cod_dane)
+cod_dane generated as str5
+
+. gen chara = length(cod_dane)
+
+. replace cod_dane = "0" + cod_dane if chara == 4
+(5,328 real changes made)
+
+. drop chara
+
+. 
+. drop if ano <2000
+(17,736 observations deleted)
+
+. 
+. by codmpio, sort : egen float y_total_2009 = mean(y_total) if ano == 2009
+(21,344 missing values generated)
+
+. by codmpio, sort : egen float g_total_2009 = mean(g_total) if ano == 2009
+(21,344 missing values generated)
+
+. by codmpio, sort : egen float indesarrollo_dep_2009 = mean(indesarrollo_dep) if ano == 2009
+(21,349 missing values generated)
+
+. by codmpio, sort : egen float indesarrollo_mun_2009 = mean(indesarrollo_mun) if ano == 2009
+(21,348 missing values generated)
+
+. by codmpio, sort : egen float inv_total_2009 = mean(inv_total) if ano == 2009
+(21,355 missing values generated)
+
+. by codmpio, sort : egen float SGP_propgeneral_2009 = mean(SGP_propgeneral) if ano == 2009
+(21,355 missing values generated)
+
+. 
+. egen y_total_2009_2 = mean(y_total_2009), by(codmpio) 
+(425 missing values generated)
+
+. egen g_total_2009_2 = mean(g_total_2009), by(codmpio) 
+(425 missing values generated)
+
+. egen indesarrollo_dep_2009_2 = mean(indesarrollo_dep_2009), by(codmpio) 
+(525 missing values generated)
+
+. egen indesarrollo_mun_2009_2 = mean(indesarrollo_mun_2009), by(codmpio) 
+(505 missing values generated)
+
+. egen inv_total_2009_2 = mean(inv_total_2009), by(codmpio) 
+(645 missing values generated)
+
+. egen SGP_propgeneral_2009_2 = mean(SGP_propgeneral_2009), by(codmpio) 
+(645 missing values generated)
+
+. 
+. drop y_total_2009 g_total_2009 indesarrollo_dep_2009 indesarrollo_mun_2009 inv_total_2009 SGP_propgeneral_2009
+
+. 
+. rename (y_total_2009_2 g_total_2009_2 indesarrollo_dep_2009_2 indesarrollo_mun_2009_2 inv_total_2009_2 SGP_propgeneral_2009_2) (y_total_2009 g_total_2009 indesarrollo_dep_2009 indesarrollo_mun_2009 inv_total
+> _2009 SGP_propgeneral_2009)
+
+. 
+. drop y_total g_total indesarrollo_dep indesarrollo_mun inv_total SGP_propgeneral 
+
+. 
+. label var codmpio "Código DANE del municipio"
+
+. label var cod_dane "Código DANE del municipio"
+
+. label var ano "Año"
+
+. label var y_total_2009 "Ingresos totales 2009 = ingresos corrientes + ingresos de capital"
+
+. label var g_total_2009 "Gastos totales 2009 = Gastos corrientes + Gastos de capital"
+
+. label var indesarrollo_dep_2009 "Índice de desarrollo departamental 2009"
+
+. label var indesarrollo_mun_2009 "Índice de desarrollo municipal 2009"
+
+. label var inv_total_2009 "Inversión total 2009"
+
+. label var SGP_propgeneral_2009 "Total inversión proposito general SGP 2009"
+
+. drop if ano <2012
+(13,466 observations deleted)
+
+. 
+. save "dta/buen_gobierno_cede.dta",replace
+file dta/buen_gobierno_cede.dta saved
+
+. 
+. cls
+
+. use "/Users/jorgeochoa/Downloads/PANEL_DE_EDUCACION(2019).dta",clear
+
+. 
+. keep codmpio ano librosleidosprom anos_est_mun  col_total
+
+. 
+. tostring codmpio,gen(cod_dane)
+cod_dane generated as str5
+
+. gen chara = length(cod_dane)
+
+. replace cod_dane = "0" + cod_dane if chara == 4
+(4,739 real changes made)
+
+. drop chara
+
+. 
+. by codmpio, sort : egen float libros_2005 = mean(librosleidosprom) if ano == 2005
+(34,901 missing values generated)
+
+. by codmpio, sort : egen float educ_prom_2005 = mean(anos_est_mun) if ano == 2005
+(34,814 missing values generated)
+
+. by codmpio, sort : egen float cole_2005 = mean(col_total) if ano == 2005
+(34,857 missing values generated)
+
+. 
+. 
+. egen libros_2005_2 = mean(libros_2005), by(codmpio) 
+(3,095 missing values generated)
+
+. egen educ_prom_2005_2 = mean(educ_prom_2005), by(codmpio) 
+(311 missing values generated)
+
+. egen cole_2005_2 = mean(cole_2005), by(codmpio) 
+(1,687 missing values generated)
+
+. 
+. 
+. drop libros_2005 educ_prom_2005 cole_2005 librosleidosprom anos_est_mun  col_total
+
+. 
+. rename (libros_2005_2 educ_prom_2005_2 cole_2005_2)(libros_2005 educ_prom_2005 cole_2005)
+
+. 
+. drop if ano <2012 
+(28,066 observations deleted)
+
+. 
+. label var libros_2005 "Libros leidos 2005"
+
+. label var educ_prom_2005 "Años promedio de eduación 2005"
+
+. label var cole_2005 "Número de colegios 2005"
+
+. 
+. save "dta/educacion_cede.dta",replace
+file dta/educacion_cede.dta saved
+
+. 
+. cls
+
+. use "/Users/jorgeochoa/Downloads/PANEL_SALUD_Y_SERVICIOS.dta",clear
+
+. 
+. keep codmpio ano tacued talcan taseo 
+
+. 
+. tostring codmpio,gen(cod_dane)
+cod_dane generated as str5
+
+. gen chara = length(cod_dane)
+
+. replace cod_dane = "0" + cod_dane if chara == 4
+(2,846 real changes made)
+
+. drop chara
+
+. 
+. by codmpio, sort : egen tacued_2009 = mean(tacued) if ano == 2009
+(21,281 missing values generated)
+
+. by codmpio, sort : egen talcan_2009 = mean(talcan) if ano == 2009
+(21,281 missing values generated)
+
+. by codmpio, sort : egen taseo_2009 = mean(taseo) if ano == 2009
+(21,281 missing values generated)
+
+. 
+. egen tacued_2009_2 = mean(tacued_2009), by(codmpio) 
+(3,266 missing values generated)
+
+. egen talcan_2009_2 = mean(talcan_2009), by(codmpio) 
+(3,266 missing values generated)
+
+. egen taseo_2009_2 = mean(taseo_2009), by(codmpio) 
+(3,266 missing values generated)
+
+. 
+. drop tacued_2009 talcan_2009 taseo_2009 tacued talcan taseo 
+
+. rename (tacued_2009_2 talcan_2009_2 taseo_2009_2)(tacued_2009 talcan_2009 taseo_2009)
+
+. 
+. label var tacued_2009 "Cobertura de acueducto - 2009"
+
+. label var talcan_2009 "Cobertura de aseo - 2009"
+
+. label var taseo_2009 "Cobertura de alcantarillado - 2009"
+
+. 
+. drop if ano <2012 
+(16,387 observations deleted)
+
+. 
+. drop if cod_dane =="05999"
+(4 observations deleted)
+
+. drop if cod_dane =="08999"
+(3 observations deleted)
+
+. drop if cod_dane =="13999"
+(4 observations deleted)
+
+. drop if cod_dane =="15999"
+(1 observation deleted)
+
+. drop if cod_dane =="17999"
+(1 observation deleted)
+
+. drop if cod_dane =="18999"
+(2 observations deleted)
+
+. drop if cod_dane =="19856"
+(5 observations deleted)
+
+. drop if cod_dane =="19999"
+(3 observations deleted)
+
+. drop if cod_dane =="20999"
+(3 observations deleted)
+
+. drop if cod_dane =="23685"
+(0 observations deleted)
+
+. drop if cod_dane =="23999"
+(1 observation deleted)
+
+. drop if cod_dane =="25999"
+(4 observations deleted)
+
+. drop if cod_dane =="27086"
+(4 observations deleted)
+
+. drop if cod_dane =="27999"
+(4 observations deleted)
+
+. drop if cod_dane =="41000"
+(1 observation deleted)
+
+. drop if cod_dane =="41999"
+(2 observations deleted)
+
+. drop if cod_dane =="44999"
+(2 observations deleted)
+
+. drop if cod_dane =="47999"
+(4 observations deleted)
+
+. drop if cod_dane =="50999"
+(3 observations deleted)
+
+. drop if cod_dane =="52524"
+(1 observation deleted)
+
+. drop if cod_dane =="52999"
+(3 observations deleted)
+
+. drop if cod_dane =="54999"
+(2 observations deleted)
+
+. drop if cod_dane =="63999"
+(4 observations deleted)
+
+. drop if cod_dane =="66999"
+(3 observations deleted)
+
+. drop if cod_dane =="68999"
+(4 observations deleted)
+
+. drop if cod_dane =="70000"
+(1 observation deleted)
+
+. drop if cod_dane =="70999"
+(2 observations deleted)
+
+. drop if cod_dane =="73999"
+(4 observations deleted)
+
+. drop if cod_dane =="75004"
+(1 observation deleted)
+
+. drop if cod_dane =="75008"
+(1 observation deleted)
+
+. drop if cod_dane =="75032"
+(4 observations deleted)
+
+. drop if cod_dane =="75036"
+(1 observation deleted)
+
+. drop if cod_dane =="75040"
+(2 observations deleted)
+
+. drop if cod_dane =="75052"
+(1 observation deleted)
+
+. drop if cod_dane =="75056"
+(1 observation deleted)
+
+. drop if cod_dane =="75068"
+(3 observations deleted)
+
+. drop if cod_dane =="75076"
+(4 observations deleted)
+
+. drop if cod_dane =="75100"
+(1 observation deleted)
+
+. drop if cod_dane =="75124"
+(3 observations deleted)
+
+. drop if cod_dane =="75152"
+(4 observations deleted)
+
+. drop if cod_dane =="75156"
+(2 observations deleted)
+
+. drop if cod_dane =="75174"
+(4 observations deleted)
+
+. drop if cod_dane =="75180"
+(3 observations deleted)
+
+. drop if cod_dane =="75188"
+(4 observations deleted)
+
+. drop if cod_dane =="75191"
+(1 observation deleted)
+
+. drop if cod_dane =="75192"
+(3 observations deleted)
+
+. drop if cod_dane =="75208"
+(2 observations deleted)
+
+. drop if cod_dane =="75214"
+(3 observations deleted)
+
+. drop if cod_dane =="75218"
+(4 observations deleted)
+
+. drop if cod_dane =="75222"
+(2 observations deleted)
+
+. drop if cod_dane =="75238"
+(1 observation deleted)
+
+. drop if cod_dane =="75249"
+(1 observation deleted)
+
+. drop if cod_dane =="75250"
+(4 observations deleted)
+
+. drop if cod_dane =="75254"
+(1 observation deleted)
+
+. drop if cod_dane =="75276"
+(3 observations deleted)
+
+. drop if cod_dane =="75328"
+(2 observations deleted)
+
+. drop if cod_dane =="75332"
+(3 observations deleted)
+
+. drop if cod_dane =="75340"
+(2 observations deleted)
+
+. drop if cod_dane =="75356"
+(1 observation deleted)
+
+. drop if cod_dane =="75364"
+(1 observation deleted)
+
+. drop if cod_dane =="75372"
+(2 observations deleted)
+
+. drop if cod_dane =="75376"
+(1 observation deleted)
+
+. drop if cod_dane =="75380"
+(4 observations deleted)
+
+. drop if cod_dane =="75384"
+(4 observations deleted)
+
+. drop if cod_dane =="75388"
+(2 observations deleted)
+
+. drop if cod_dane =="75392"
+(1 observation deleted)
+
+. drop if cod_dane =="75428"
+(1 observation deleted)
+
+. drop if cod_dane =="75484"
+(4 observations deleted)
+
+. drop if cod_dane =="75528"
+(4 observations deleted)
+
+. drop if cod_dane =="75530"
+(4 observations deleted)
+
+. drop if cod_dane =="75533"
+(4 observations deleted)
+
+. drop if cod_dane =="75554"
+(1 observation deleted)
+
+. drop if cod_dane =="75558"
+(3 observations deleted)
+
+. drop if cod_dane =="75578"
+(1 observation deleted)
+
+. drop if cod_dane =="75591"
+(4 observations deleted)
+
+. drop if cod_dane =="75600"
+(2 observations deleted)
+
+. drop if cod_dane =="75604"
+(4 observations deleted)
+
+. drop if cod_dane =="75608"
+(2 observations deleted)
+
+. drop if cod_dane =="75620"
+(1 observation deleted)
+
+. drop if cod_dane =="75630"
+(2 observations deleted)
+
+. drop if cod_dane =="75659"
+(1 observation deleted)
+
+. drop if cod_dane =="75662"
+(3 observations deleted)
+
+. drop if cod_dane =="75674"
+(1 observation deleted)
+
+. drop if cod_dane =="75724"
+(4 observations deleted)
+
+. drop if cod_dane =="75740"
+(4 observations deleted)
+
+. drop if cod_dane =="75748"
+(1 observation deleted)
+
+. drop if cod_dane =="75752"
+(1 observation deleted)
+
+. drop if cod_dane =="75756"
+(4 observations deleted)
+
+. drop if cod_dane =="75780"
+(3 observations deleted)
+
+. drop if cod_dane =="75784"
+(2 observations deleted)
+
+. drop if cod_dane =="75796"
+(1 observation deleted)
+
+. drop if cod_dane =="75804"
+(1 observation deleted)
+
+. drop if cod_dane =="75826"
+(3 observations deleted)
+
+. drop if cod_dane =="75840"
+(4 observations deleted)
+
+. drop if cod_dane =="75850"
+(3 observations deleted)
+
+. drop if cod_dane =="75858"
+(1 observation deleted)
+
+. drop if cod_dane =="75862"
+(4 observations deleted)
+
+. drop if cod_dane =="75998"
+(2 observations deleted)
+
+. drop if cod_dane =="75999"
+(4 observations deleted)
+
+. drop if cod_dane =="76000"
+(2 observations deleted)
+
+. drop if cod_dane =="76999"
+(4 observations deleted)
+
+. drop if cod_dane =="81999"
+(1 observation deleted)
+
+. drop if cod_dane =="85999"
+(4 observations deleted)
+
+. drop if cod_dane =="86999"
+(2 observations deleted)
+
+. drop if cod_dane =="91000"
+(5 observations deleted)
+
+. drop if cod_dane =="91999"
+(1 observation deleted)
+
+. drop if cod_dane =="94000"
+(5 observations deleted)
+
+. drop if cod_dane =="94999"
+(2 observations deleted)
+
+. drop if cod_dane =="95000"
+(1 observation deleted)
+
+. drop if cod_dane =="95999"
+(3 observations deleted)
+
+. drop if cod_dane =="97000"
+(5 observations deleted)
+
+. drop if cod_dane =="97999"
+(2 observations deleted)
+
+. drop if cod_dane =="99000"
+(5 observations deleted)
+
+. drop if cod_dane =="99572"
+(0 observations deleted)
+
+. drop if cod_dane =="99760"
+(0 observations deleted)
+
+. 
+. save "dta/salud_servicios_cede.dta",replace
+file dta/salud_servicios_cede.dta saved
+
+. cls
+
+. 
+. quiet use "dta/buen_gobierno_cede",clear
+
+. merge m:1 cod_dane ano using "dta/carac_gene_cede.dta", gen(buen_gene)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             4
+        from master                         4  (buen_gene==1)
+        from using                          0  (buen_gene==2)
+
+    matched                             8,975  (buen_gene==3)
+    -----------------------------------------
+
+.  
+. merge 1:m cod_dane ano using "dta/confl_violencia_cede.dta", gen(buen_gene_vio)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                            20
+        from master                         3  (buen_gene_vio==1)
+        from using                         17  (buen_gene_vio==2)
+
+    matched                             8,976  (buen_gene_vio==3)
+    -----------------------------------------
+
+. 
+. merge m:1 cod_dane ano using "dta/educacion_cede.dta", gen(buen_gene_vio_edu)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                         1,135
+        from master                     1,135  (buen_gene_vio_edu==1)
+        from using                          0  (buen_gene_vio_edu==2)
+
+    matched                             7,861  (buen_gene_vio_edu==3)
+    -----------------------------------------
+
+. 
+. merge m:1 cod_dane ano using "dta/salud_servicios_cede.dta", gen(buen_gene_vio_edu_serv)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                         3,388
+        from master                     3,388  (buen_gene_vio_edu_serv==1)
+        from using                          0  (buen_gene_vio_edu_serv==2)
+
+    matched                             5,608  (buen_gene_vio_edu_serv==3)
+    -----------------------------------------
+
+. 
+. drop if cod_dane == "."
+(2 observations deleted)
+
+. 
+. drop buen_*
+
+. 
+. save "dta/controles cede.dta",replace
+file dta/controles cede.dta saved
+
+. cap log close
+
+. import delimited "csv/crimenes total.csv",clear
+(14 vars, 102,205 obs)
+
+. 
+. replace amenazas = "." if amenazas =="NA"
+(54,650 real changes made)
+
+. replace delitos = "." if delitos =="NA"
+(58,065 real changes made)
+
+. replace lesiones = "." if lesiones =="NA"
+(25,808 real changes made)
+
+. replace hurtopersonas = "." if hurtopersonas =="NA"
+(52,085 real changes made)
+
+. replace hurtoresidencias = "." if hurtoresidencias =="NA"
+(62,698 real changes made)
+
+. replace homicidios = "." if homicidios =="NA"
+(65,233 real changes made)
+
+. replace prom_edad_homi = "." if prom_edad_homi =="NA"
+(65,287 real changes made)
+
+. 
+. destring amenazas delitos lesiones hurtopersonas hurtoresidencias homicidios prom_edad_homi, replace
+amenazas: all characters numeric; replaced as int
+(54650 missing values generated)
+delitos: all characters numeric; replaced as int
+(58065 missing values generated)
+lesiones: all characters numeric; replaced as int
+(25808 missing values generated)
+hurtopersonas: all characters numeric; replaced as int
+(52085 missing values generated)
+hurtoresidencias: all characters numeric; replaced as int
+(62698 missing values generated)
+homicidios: all characters numeric; replaced as int
+(65233 missing values generated)
+prom_edad_homi: all characters numeric; replaced as double
+(65287 missing values generated)
+
+. 
+. drop v1 year_month
+
+. 
+. gen fecha = ym(year,mes)
+
+. format fecha %tm
+
+. 
+. order fecha departamento municipio cod_dane
+
+. order year mes, last
+
+. 
+. label var fecha "Fecha año - mes"
+
+. label var departamento "Nombre departamento DANE"
+
+. label var municipio "Nombre municipio DANE"
+
+. label var cod_dane "Código DANE del municipio"
+
+. label var amenazas "Número total de amenazas para la fecha"
+
+. label var delitos "Número total de delitos sexuales para la fecha"
+
+. label var lesiones "Número total de lesiones personales para la fecha"
+
+. label var hurtopersonas "Número total de hurtos a personas para la fecha"
+
+. label var hurtoresidencias "Número total de hurtos a residencias para la fecha"
+
+. label var homicidios "Número total de homicidios para la fecha"
+
+. label var prom_edad_homi "Promedio de edad de los homicidios ocurridos en la fecha"
+
+. label var year "Año de ocurrencia"
+
+. label var mes "Mes de ocurrencia"
+
+. 
+. save "dta/crimenes totales.dta",replace
+file dta/crimenes totales.dta saved
+
+. cap log close
+
+. import delimited "csv/migracion ibanezrozo.csv", delimiter(comma) varnames(1) encoding(UTF-8) stringcols(4 7) clear 
+(22 vars, 107,712 obs)
+
+. 
+. drop v1
+
+. 
+. gen cod_dane = dpto_ccdgo+mpio_ccdgo
+
+. gen fecha = ym(ano,mes)
+
+. format fecha %tm
+
+. 
+. order fecha cod_dane mpi dpto inmigrantes_1_ano inmigrantes_5_anos extr_pob_1_ano extr_pob_5_ano  pob_total pob_total_cab_municipal pob_total_resto_municipal  dis_mun_migra dis_mun_punt_min sum_weigths total
+> _migra mig_vene
+
+. 
+. drop mes dpto_ccdgo mpio_ccdgo mpio_cnmbr 
+
+. 
+. foreach x in inmigrantes_1_ano inmigrantes_5_anos  extr_pob_1_ano extr_pob_5_ano  pob_total pob_total_cab_municipal pob_total_resto_municipal dis_mun_migra dis_mun_punt_min sum_weigths mig_vene distancia_pro
+> mediada{
+  2. 
+.         cap replace `x' = "." if `x' == "NA"
+  3.         destring `x' , replace
+  4. 
+. }
+inmigrantes_1_ano already numeric; no replace
+inmigrantes_5_anos already numeric; no replace
+extr_pob_1_ano already numeric; no replace
+extr_pob_5_ano already numeric; no replace
+pob_total already numeric; no replace
+pob_total_cab_municipal already numeric; no replace
+pob_total_resto_municipal already numeric; no replace
+dis_mun_migra already numeric; no replace
+dis_mun_punt_min already numeric; no replace
+sum_weigths already numeric; no replace
+mig_vene already numeric; no replace
+distancia_promediada already numeric; no replace
+
+. 
+. label var fecha "Fecha: año - mes"
+
+. label var cod_dane "Código DANE del municipio"
+
+. label var mpi "Nombre municipio"
+
+. label var dpto "Nombre del Departamento donde se encuentra el municipio"
+
+. label var inmigrantes_1_ano "Número de personas provenientes otro país hace un año - Censo Poblacional DANE 2018"
+note: label truncated to 80 characters
+
+. label var inmigrantes_5_anos "Número de personas provenientes otro país hace 5 años - Censo Poblacional DANE 2018"
+note: label truncated to 80 characters
+
+. label var extr_pob_1_ano "Proporción población extranjera un año: (inmigrantes_1_ano/pob_total)*100"
+
+. label var extr_pob_5_ano "Proporción población extranjera 5 años :(inmigrantes_5_anos/pob_total)*100"
+
+. label var pob_total "Población total del municipio - Censo Poblacional DANE 2018"
+
+. label var pob_total_cab_municipal "Población total en la cabecera del municipio - Censo Poblacional DANE 2018"
+
+. label var pob_total_resto_municipal "Población total resto del municipio - Censo Poblacional DANE 2018"
+
+. label var dis_mun_migra "Distancia mínima del centroide del municipio a un punto de migración"
+
+. label var dis_mun_punt_min "Distancia mínima del centroide del municipio a uno de los 5 puntos de migración en la fronterea venezolana"
+note: label truncated to 80 characters
+
+. label var sum_weigths "Inverso de la suma ponderada de la distancia a los 5 puntos de migración venezuela"
+note: label truncated to 80 characters
+
+. label var total_migra "Migración venezolana total en todos los puntos de migración em Colombia"
+
+. label var mig_vene "Migración predicha venezolana"
+
+. label var ano "Año"
+
+. label var distancia_promediada "Distancia promedio centroide muncipio y 5 puntos fronterizos"
+
+. 
+. save "dta/mig vene iba rozo.dta",replace
+file dta/mig vene iba rozo.dta saved
+
+. 
+. merge 1:m fecha cod_dane using "dta/crimenes totales.dta", gen(m1)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                        38,383
+        from master                    21,945  (m1==1)
+        from using                     16,438  (m1==2)
+
+    matched                            85,767  (m1==3)
+    -----------------------------------------
+
+. //use "dta/crimenes totales.dta",clear
+. dis 7720 + 8710 + 8*13464
+124142
+
+. 
+. drop if year <= 2011
+(16,430 observations deleted)
+
+. drop if ano == 2020
+(0 observations deleted)
+
+. 
+. drop departamento municipio
+
+. 
+. encode cod_dane, gen(codi_dane)
+
+. xtset codi_dane fecha, monthly
+       panel variable:  codi_dane (unbalanced)
+        time variable:  fecha, 2012m1 to 2019m12, but with gaps
+                delta:  1 month
+
+. xtdescribe
+
+codi_dane:  1, 2, ..., 1124                                  n =       1124
+   fecha:  2012m1, 2012m2, ..., 2019m12                      T =         96
+           Delta(fecha) = 1 month
+           Span(fecha)  = 96 periods
+           (codi_dane*fecha uniquely identifies each observation)
+
+Distribution of T_i:   min      5%     25%       50%       75%     95%     max
+                         1      96      96        96        96      96      96
+
+     Freq.  Percent    Cum. |  Pattern
+ ---------------------------+--------------------------------------------------------------------------------------------------
+     1122     99.82   99.82 |  111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+        1      0.09   99.91 |  ..............................................................................................1.
+        1      0.09  100.00 |  ................................................1..........1...1....11........1...1.............
+ ---------------------------+--------------------------------------------------------------------------------------------------
+     1124    100.00         |  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+. 
+. bysort cod_dane (fecha): gen cumulative_migration = sum(total_migra)
+
+. 
+. merge m:1 cod_dane ano using "dta/controles cede.dta", gen(m3)
+(note: variable ano was int, now float to accommodate using data's values)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                            26
+        from master                         8  (m3==1)
+        from using                         18  (m3==2)
+
+    matched                           107,712  (m3==3)
+    -----------------------------------------
+
+. merge m:1 cod_dane ano using "dta/luces procesadas.dta", gen(m4)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           594
+        from master                       594  (m4==1)
+        from using                          0  (m4==2)
+
+    matched                           107,144  (m4==3)
+    -----------------------------------------
+
+. 
+. drop m1 m3 m4
+
+. * Rozo & Vargas (2015)
+. gen esti_ven_migra_censo_1 = (cumulative_migration*(extr_pob_1_ano/100))/pob_total
+(26 missing values generated)
+
+. gen esti_ven_migra_proyeccion_1 = (cumulative_migration*(extr_pob_1_ano/100))/pobl_tot
+(38 missing values generated)
+
+. gen esti_ven_migra_censo_5 = (cumulative_migration*(extr_pob_5_ano/100))/pob_total
+(26 missing values generated)
+
+. gen esti_ven_migra_proyeccion_5 = (cumulative_migration*(extr_pob_5_ano/100))/pobl_tot
+(38 missing values generated)
+
+. * Ibañez & Rozo (2020)
+. gen entra_pred_ven  = (cumulative_migration*sum_weigths)
+(26 missing values generated)
+
+. 
+. 
+. label var esti_ven_migra_censo_1 "Migración venezolana estimada Rozo & Vargas (2015) - Pob censal 2018 y prop extranjeros 1 año"
+note: label truncated to 80 characters
+
+. label var esti_ven_migra_censo_5 "Migración venezolana estimada Rozo & Vargas (2015) - Pob censal 2018 y prop extranjeros 5 años"
+note: label truncated to 80 characters
+
+. label var esti_ven_migra_proyeccion_1 "Migración venezolana estimada Rozo & Vargas (2015) - Proyecciones censo 2005 y prop extranjeros 1 año"
+note: label truncated to 80 characters
+
+. label var esti_ven_migra_proyeccion_5 "Migración venezolana estimada Rozo & Vargas (2015) - Proyecciones censo 2005 y prop extranjeros 5 años"
+note: label truncated to 80 characters
+
+. label var entra_pred_ven "Entrada migración predicha Ibañez & Rozo (2020)"
+
+. 
+. sort cod_dane fecha
+
+. 
+. foreach z in amenazas delitos lesiones hurtopersonas hurtoresidencias homicidios{
+  2.         
+.         replace `z' =  (`z'/pobl_tot) * 100000
+  3.         label var `z' ""
+  4.         dis "`: var label `z'' x 100.000 hab"
+  5. } 
+variable amenazas was int now float
+(43,107 real changes made, 1 to missing)
+ x 100.000 hab
+variable delitos was int now float
+(39,693 real changes made, 1 to missing)
+ x 100.000 hab
+variable lesiones was int now float
+(64,961 real changes made, 3 to missing)
+ x 100.000 hab
+variable hurtopersonas was int now float
+(42,942 real changes made, 2 to missing)
+ x 100.000 hab
+variable hurtoresidencias was int now float
+(34,713 real changes made, 1 to missing)
+ x 100.000 hab
+variable homicidios was int now float
+(29,699 real changes made, 8 to missing)
+ x 100.000 hab
+
+. 
+. label var amenazas "Amenazas - Tasa x 100.000 habitantes"
+
+. label var delitos "Delitos sexuales - Tasa x 100.000 habitantes"
+
+. label var lesiones "Lesiones personales - Tasa x 100.000 habitantes"
+
+. label var hurtopersonas "Hurto a personas - Tasa x 100.000 habitantes"
+
+. label var hurtoresidencias "Hurto a residencias - Tasa x 100.000 habitantes"
+
+. label var homicidios "Homicidios - Tasa x 100.000 habitantes"
+
+. label var year_month "Identificador mes año R"
+
+. 
+. merge m:1 cod_dane using "dta/censo 2005.dta", gen(m4)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           882
+        from master                       882  (m4==1)
+        from using                          0  (m4==2)
+
+    matched                           106,856  (m4==3)
+    -----------------------------------------
+
+. drop m4
+
+. save "dta/base final.dta",replace
+file dta/base final.dta saved
+
+. cap log close
+
+. 
+. use "base final.dta",clear
+
+. 
+. replace amenazas = 0 if amenazas == .
+(64,632 real changes made)
+
+. replace delitos = 0 if delitos == .
+(68,046 real changes made)
+
+. replace lesiones = 0 if lesiones == .
+(42,780 real changes made)
+
+. replace hurtopersonas = 0 if hurtopersonas == .
+(64,798 real changes made)
+
+. replace hurtoresidencias = 0 if hurtoresidencias == .
+(73,026 real changes made)
+
+. replace homicidios = 0 if homicidios == .
+(78,047 real changes made)
+
+. 
+. gen total_crime = amenazas +delitos +lesiones +hurtopersonas +hurtoresidencias +homicidios
+
+. 
+. global controles y_total_2009 g_total_2009 indesarrollo_mun_2009 SGP_propgeneral_2009 gpc_2005 gini_2005 pobre_2005 nbi_2005 ipm_2005 gdp_agri gdp_indu gdp_serv cumu_terro cumu_homic libros_2005 educ_prom_20
+> 05 cole_2005  distancia_promediada
+
+. 
+. gen time = fecha - 624
+(18 missing values generated)
+
+. 
+. global time_controles 
+
+. 
+. foreach x of global controles {
+  2.         dis "`x'"
+  3.         gen time_`x' = `x'*time
+  4.         label var time_`x' "Control: `x' interactuado con tiempo"
+  5.         global time_controles ${time_controles} time_`x'                
+  6. }
+y_total_2009
+(2,042 missing values generated)
+g_total_2009
+(2,042 missing values generated)
+indesarrollo_mun_2009
+(2,426 missing values generated)
+SGP_propgeneral_2009
+(3,098 missing values generated)
+gpc_2005
+(6,818 missing values generated)
+gini_2005
+(6,818 missing values generated)
+pobre_2005
+(6,818 missing values generated)
+nbi_2005
+(242 missing values generated)
+ipm_2005
+(1,058 missing values generated)
+gdp_agri
+(2,498 missing values generated)
+gdp_indu
+(2,498 missing values generated)
+gdp_serv
+(2,498 missing values generated)
+cumu_terro
+(26 missing values generated)
+cumu_homic
+(26 missing values generated)
+libros_2005
+(21,554 missing values generated)
+educ_prom_2005
+(14,246 missing values generated)
+cole_2005
+(17,858 missing values generated)
+distancia_promediada
+(26 missing values generated)
+
+. 
+. global estadisticas amenazas delitos lesiones hurtopersonas hurtoresidencias homicidios total_crime inmigrantes_1_ano inmigrantes_5_anos extr_pob_1_ano extr_pob_5_ano total_migra ${controles}
+
+. 
+. matrix define estadi = J(38,7,.)
+
+. matrix colnames estadi = "Year" "Obs" "Mean" "St Dev" "Min" "Median" "Max"
+
+. matrix rownames estadi = ${estadisticas}
+
+. matlist estadi
+
+             |      Year        Obs       Mean     St Dev        Min     Median        Max 
+-------------+-----------------------------------------------------------------------------
+    amenazas |         .          .          .          .          .          .          . 
+     delitos |         .          .          .          .          .          .          . 
+    lesiones |         .          .          .          .          .          .          . 
+hurtoperso~s |         .          .          .          .          .          .          . 
+hurtoresid~s |         .          .          .          .          .          .          . 
+  homicidios |         .          .          .          .          .          .          . 
+ total_crime |         .          .          .          .          .          .          . 
+inmigrante~o |         .          .          .          .          .          .          . 
+inmigrante~s |         .          .          .          .          .          .          . 
+extr_pob_1~o |         .          .          .          .          .          .          . 
+extr_pob_5~o |         .          .          .          .          .          .          . 
+ total_migra |         .          .          .          .          .          .          . 
+y_total_2009 |         .          .          .          .          .          .          . 
+g_total_2009 |         .          .          .          .          .          .          . 
+indes~n_2009 |         .          .          .          .          .          .          . 
+SGP_pro~2009 |         .          .          .          .          .          .          . 
+    gpc_2005 |         .          .          .          .          .          .          . 
+   gini_2005 |         .          .          .          .          .          .          . 
+  pobre_2005 |         .          .          .          .          .          .          . 
+    nbi_2005 |         .          .          .          .          .          .          . 
+    ipm_2005 |         .          .          .          .          .          .          . 
+    gdp_agri |         .          .          .          .          .          .          . 
+    gdp_indu |         .          .          .          .          .          .          . 
+    gdp_serv |         .          .          .          .          .          .          . 
+  cumu_terro |         .          .          .          .          .          .          . 
+  cumu_homic |         .          .          .          .          .          .          . 
+ libros_2005 |         .          .          .          .          .          .          . 
+educ_pr~2005 |         .          .          .          .          .          .          . 
+   cole_2005 |         .          .          .          .          .          .          . 
+distancia_~a |         .          .          .          .          .          .          . 
+distancia_~a |         .          .          .          .          .          .          . 
+distancia_~a |         .          .          .          .          .          .          . 
+distancia_~a |         .          .          .          .          .          .          . 
+distancia_~a |         .          .          .          .          .          .          . 
+distancia_~a |         .          .          .          .          .          .          . 
+distancia_~a |         .          .          .          .          .          .          . 
+distancia_~a |         .          .          .          .          .          .          . 
+distancia_~a |         .          .          .          .          .          .          . 
+
+. 
+. local fila = 1
+
+. foreach x of global estadisticas{
+  2.         
+.         quiet sum `x',d
+  3.         
+.         matrix estadi[`fila',2] = r(N)  
+  4.         matrix estadi[`fila',3] = r(mean)
+  5.         matrix estadi[`fila',4] = r(sd)
+  6.         matrix estadi[`fila',5] = r(min)
+  7.         matrix estadi[`fila',6] = r(p50)
+  8.         matrix estadi[`fila',7] = r(max)
+  9.         
+.         local fila = `fila' + 1 
+ 10.         
+. }
+
+. mat li estadi, format(%15,3f)
+
+estadi[38,7]
+                        Year             Obs            Mean          St Dev             Min          Median             Max
+    amenazas               .      107738,000           7,104          15,359           0,000           0,000         616,406
+     delitos               .      107738,000           3,720           7,998           0,000           0,000         293,945
+    lesiones               .      107738,000          13,713          18,566           0,000           7,583         365,991
+hurtoperso~s               .      107738,000           6,777          12,932           0,000           0,000         364,219
+hurtoresid~s               .      107738,000           3,628           8,016           0,000           0,000         179,131
+  homicidios               .      107738,000           2,061           5,252           0,000           0,000         178,891
+ total_crime               .      107738,000          37,002          38,359           0,000          26,755         640,114
+inmigrante~o               .      107712,000        1627,380       14286,218           0,000         128,000      436092,000
+inmigrante~s               .      107712,000        3324,873       25886,761           0,000         264,000      766060,000
+extr_pob_1~o               .      107712,000           2,506           3,397           0,000           1,206          30,632
+extr_pob_5~o               .      107712,000           5,548           8,060           0,000           2,478          74,760
+ total_migra               .      107712,000       49630,781       36244,927       15350,000       29088,500      130925,000
+y_total_2009               .      105696,000       30749,270      266349,243           0,000        7813,345     8131355,000
+g_total_2009               .      105696,000       31209,474      253937,832           0,000        8203,983     7553097,000
+indes~n_2009               .      105312,000          49,573          10,434           4,188          49,525          80,101
+SGP_pro~2009               .      104640,000     2894981,229    33166714,811           0,000     1110938,000  1014286720,000
+    gpc_2005               .      100920,000      255840,364       60338,855      132045,797      244843,500      585448,438
+   gini_2005               .      100920,000           0,454           0,033           0,394           0,448           0,568
+  pobre_2005               .      100920,000           0,512           0,102           0,170           0,505           0,759
+    nbi_2005               .      107496,000          45,367          20,368           5,430          43,166         100,000
+    ipm_2005               .      106680,000          69,449          15,754          14,272          70,417         100,000
+    gdp_agri               .      105240,000       26347,573       32996,011          14,181       15862,969      391197,844
+    gdp_indu               .      105240,000      113086,952      797893,287         207,681       20008,426    22970058,000
+    gdp_serv               .      105240,000      196420,558     2278115,920         211,672       33533,469    72695808,000
+  cumu_terro               .      107729,000           7,476          22,888           0,000           1,000         291,000
+  cumu_homic               .      107729,000         199,280        1045,489           0,000          47,000       26922,000
+ libros_2005               .       86184,000           0,581           0,237           0,000           0,540           1,790
+educ_pr~2005               .       93492,000           7,097           1,128           2,300           6,951          11,783
+   cole_2005               .       89880,000           8,259          47,140           1,000           3,000        1340,000
+distancia_~a               .      107712,000      110929,504       47793,198       33178,762      100241,922      286719,312
+distancia_~a               .               .               .               .               .               .               .
+distancia_~a               .               .               .               .               .               .               .
+distancia_~a               .               .               .               .               .               .               .
+distancia_~a               .               .               .               .               .               .               .
+distancia_~a               .               .               .               .               .               .               .
+distancia_~a               .               .               .               .               .               .               .
+distancia_~a               .               .               .               .               .               .               .
+distancia_~a               .               .               .               .               .               .               .
+
+. 
+. drop if cod_dane == "NA"
+(7 observations deleted)
+
+. drop if cod_dane == "NO RE"
+(1 observation deleted)
+
+. 
+. label var cumulative_migration  "Migración acumulada venezolanos 2012-01 a 2019-12"
+
+. 
+. ** Modelo IV con instrumento bartick ----------------------------------------------
+. 
+. ** Instumento Bartick
+. 
+. gen bartick  = cumulative_migration*part_ven_ajustada_2005
+(1,266 missing values generated)
+
+. gen bartick2 = (cumulative_migration*part_ven_ajustada_2005)/pobl_tot
+(1,266 missing values generated)
+
+. gen bartick3 = (cumulative_migration*part_ven_ajustada_2005)/distancia_promediada
+(1,266 missing values generated)
+
+. 
+. label var bartick  "Instrumento basado en Bartick(1991). (Migracion acumulada * % venzolanos en municipio)"
+note: label truncated to 80 characters
+
+. label var bartick2 "Instrumento basado en Bartick(1991). (Migracion acumulada * % venzolanos en municipio)/Poblacion total"
+note: label truncated to 80 characters
+
+. label var bartick3 "Instrumento basado en Bartick(1991). (Migracion acumulada * % venzolanos en municipio)distancia promedio a puntos de migracion"
+note: label truncated to 80 characters
+
+. 
+. egen dep  = group(fecha coddepto)
+(30 missing values generated)
+
+. 
+. gen homi_sine = log(homicidios + (homicidios^2 + 1)^1/2)
+
+. gen amen_sine = log(amenazas + (amenazas^2 + 1)^1/2)
+
+. gen deli_sine = log(delitos + (delitos^2 + 1)^1/2)
+
+. gen lesi_sine = log(lesiones + (lesiones^2 + 1)^1/2)
+
+. gen hupe_sine = log(hurtopersonas + (hurtopersonas^2 + 1)^1/2)
+
+. gen hure_sine = log(hurtoresidencias + (hurtoresidencias^2 + 1)^1/2)
+
+. gen tota_sine = log(total_crime + (total_crime^2 + 1)^1/2)
+
+. 
+. label var homi_sine "Transformación SHI: sinh-1(x) = log(x + (x 2 + 1)1/2)"
+
+. label var amen_sine "Transformación SHI: sinh-1(x) = log(x + (x 2 + 1)1/2)"
+
+. label var deli_sine "Transformación SHI: sinh-1(x) = log(x + (x 2 + 1)1/2)"
+
+. label var lesi_sine "Transformación SHI: sinh-1(x) = log(x + (x 2 + 1)1/2)"
+
+. label var hupe_sine "Transformación SHI: sinh-1(x) = log(x + (x 2 + 1)1/2)"
+
+. label var hure_sine "Transformación SHI: sinh-1(x) = log(x + (x 2 + 1)1/2)"
+
+. label var tota_sine "Transformación SHI: sinh-1(x) = log(x + (x 2 + 1)1/2)"
+
+. 
+. 
+. quiet ivreghdfe tota_sine (entra_pred_ven = bartick3) promedio_luz_editada ${time_controles}, absorb(cod_dane dep) savefirst first sfirst ffirst cluster(cod_dane) savefprefix(betas_primera)
+
+. quiet outreg2 using "resultados/segunda etapa.xls", replace cti("Prueba : Segunda etapa") keep(entra_pred_ven) addstat(F-test,e(F),Clusters,e(N_clust),R2-ajustado, e(r2_a)) addtext(EF Departamento X Tiempo, 
+> Si, EF municipio,si)
+ : 
+. quiet reghdfe entra_pred_ven bartick3 promedio_luz_editada ${time_controles} if tota_sine != ., absorb(cod_dane dep) cluster(cod_dane)
+
+. quiet outreg2 using "resultados/primera etapa.xls", replace cti("Prueba : Primera etapa") keep(bartick3) addstat(F-test,e(F),Clusters,e(N_clust),R2-ajustado, e(r2_a)) addtext(EF Departamento X Tiempo, Si, EF
+>  municipio,si) nocons
+ : 
+. quiet reghdfe tota_sine bartick3 promedio_luz_editada ${time_controles} if tota_sine != ., absorb(cod_dane dep) cluster(cod_dane)
+
+. quiet outreg2 using "resultados/forma reducida.xls", replace cti("Prueba : forma reducida") keep(bartick3) addstat(F-test,e(F),Clusters,e(N_clust),R2-ajustado, e(r2_a)) addtext(EF Departamento X Tiempo, Si, 
+> EF municipio,si) nocons  
+ : 
+. 
+. 
+. global sine_criemes amen_sine deli_sine lesi_sine hupe_sine hure_sine homi_sine tota_sine
+
+. 
+. foreach migracion in entra_pred_ven esti_ven_migra_proyeccion_1{
+  2. 
+.         foreach g of global sine_criemes{
+  3.                 quiet sum `g'
+  4.                 local promedio = r(mean)
+  5.                 quiet ivreghdfe `g' (`migracion' = bartick3) promedio_luz_editada ${time_controles}, absorb(cod_dane dep) cluster(cod_dane) savefirst first sfirst ffirst savefprefix(betas_primera)
+  6.                 local beta = _b[`migracion']
+  7.                 local efecto_economico = (`promedio'*100*`beta')
+  8.                 quiet outreg2 using "resultados/segunda etapa.xls", append cti("`g' : Segunda etapa, migracion: `migracion'") keep(`migracion') addstat(F-test,e(F),Clusters,e(N_clust),R2-ajustado, e(r2_a)
+> ) addtext(EF Departamento X Tiempo, Si, EF municipio,si, Efecto económico, `efecto_economico')
+  9.                 quiet reghdfe `migracion' bartick3 promedio_luz_editada ${time_controles} if `g' != ., absorb(cod_dane dep) cluster(cod_dane)
+ 10.                 quiet outreg2 using "resultados/primera etapa.xls", append cti("`g' : Primera etapa, migracion: `migracion'") keep(bartick3) addstat(F-test,e(F),Clusters,e(N_clust),R2-ajustado, e(r2_a)) a
+> ddtext(EF Departamento X Tiempo, Si, EF municipio,si) nocons
+ 11.                 quiet reghdfe `g' bartick3 promedio_luz_editada ${time_controles} if `g' != ., absorb(cod_dane dep) cluster(cod_dane)
+ 12.                 quiet outreg2 using "resultados/forma reducida.xls", append cti("`g' : forma reducida, migracion: `migracion'") keep(bartick3) addstat(F-test,e(F),Clusters,e(N_clust),R2-ajustado, e(r2_a))
+>  addtext(EF Departamento X Tiempo, Si, EF municipio,si) nocons      
+ 13.                 
+. 
+.         }
+ 14. }
+ :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  : 
+. 
+. seeout using "resultados/segunda etapa.txt"
+Hit Enter to continue. 
+
+. 
+. seeout using "resultados/primera etapa.txt"
+Hit Enter to continue. 
+
+. 
+. seeout using "resultados/forma reducida.txt"
+Hit Enter to continue. 
+
+. 
+. quiet reghdfe amen_sine entra_pred_ven promedio_luz_editada ${time_controles}, a(dep cod_dane) cluster(cod_dane)
+
+. quiet outreg2 using "resultados/efectos_fijos.xls", replace keep(entra_pred_ven) cti("`f' FE") addtext(EF Departamento X Tiempo, Si, EF municipio,si) addstat(F-test,e(F),Clusters,e(N_clust),R2-ajustado, e(r2
+> _a))
+ : 
+. 
+. foreach migracion in entra_pred_ven esti_ven_migra_proyeccion_1{
+  2.         foreach f of global sine_criemes {
+  3.                 quiet sum `g'
+  4.                 local promedio = r(mean)
+  5.                 quiet reghdfe `f' `migracion' promedio_luz_editada ${time_controles}, a(dep cod_dane) cluster(cod_dane)
+  6.                 local beta = _b[`migracion']
+  7.                 local efecto_economico = (`promedio'*100*`beta')
+  8.                 quiet outreg2 using "resultados/efectos_fijos.xls", append keep(`migracion') cti("`f' FE") addtext(EF Departamento X Tiempo, Si, EF municipio,si) addstat(F-test,e(F),Clusters,e(N_clust),R2
+> -ajustado, e(r2_a), Efecto económico, `efecto_economico')
+  9.         }
+ 10. }
+ :  :  :  :  :  :  :  :  :  :  :  :  :  : 
+. seeout using "resultados/efectos_fijos.txt"
+Hit Enter to continue. 
+
+. 
+. cap drop ptile
+
+. cap drop grupo
+
+. 
+. xtile ptile = distancia_promediada,nq(100)
+
+. 
+. gen grupo = 1 if ptile <=10
+(96,917 missing values generated)
+
+. replace grupo = 2 if ptile <=20 & ptile > 10
+(10,787 real changes made)
+
+. replace grupo = 3 if ptile <=30 & ptile > 20
+(10,752 real changes made)
+
+. replace grupo = 4 if ptile <=40 & ptile > 30
+(10,752 real changes made)
+
+. replace grupo = 5 if ptile <=50 & ptile > 40
+(10,752 real changes made)
+
+. replace grupo = 6 if ptile <=60 & ptile > 50
+(10,787 real changes made)
+
+. replace grupo = 7 if ptile <=70 & ptile > 60
+(10,778 real changes made)
+
+. replace grupo = 8 if ptile <=80 & ptile > 70
+(10,753 real changes made)
+
+. replace grupo = 9 if ptile <=90 & ptile > 80
+(10,786 real changes made)
+
+. replace grupo = 10 if ptile <=100 & ptile > 90
+(10,752 real changes made)
+
+. 
+. foreach x of global sine_criemes{
+  2.         forvalues i=1(1)10{
+  3.                 dis "El valor `i' para el crimen `x'"
+  4.                 quiet ivreghdfe `x' (entra_pred_ven = bartick3) promedio_luz_editada ${time_controles} if grupo == `i', absorb(cod_dane dep) cluster(cod_dane) savefirst first sfirst ffirst savefprefix(bet
+> as_primera)
+  5.                 quiet lincomest _b[entra_pred_ven]
+  6.                 quiet est store `x'_`i'_distancia
+  7.         }
+  8. }                 
+El valor 1 para el crimen amen_sine
+El valor 2 para el crimen amen_sine
+El valor 3 para el crimen amen_sine
+El valor 4 para el crimen amen_sine
+El valor 5 para el crimen amen_sine
+El valor 6 para el crimen amen_sine
+El valor 7 para el crimen amen_sine
+El valor 8 para el crimen amen_sine
+El valor 9 para el crimen amen_sine
+El valor 10 para el crimen amen_sine
+El valor 1 para el crimen deli_sine
+El valor 2 para el crimen deli_sine
+El valor 3 para el crimen deli_sine
+El valor 4 para el crimen deli_sine
+El valor 5 para el crimen deli_sine
+El valor 6 para el crimen deli_sine
+El valor 7 para el crimen deli_sine
+El valor 8 para el crimen deli_sine
+El valor 9 para el crimen deli_sine
+El valor 10 para el crimen deli_sine
+El valor 1 para el crimen lesi_sine
+El valor 2 para el crimen lesi_sine
+El valor 3 para el crimen lesi_sine
+El valor 4 para el crimen lesi_sine
+El valor 5 para el crimen lesi_sine
+El valor 6 para el crimen lesi_sine
+El valor 7 para el crimen lesi_sine
+El valor 8 para el crimen lesi_sine
+El valor 9 para el crimen lesi_sine
+El valor 10 para el crimen lesi_sine
+El valor 1 para el crimen hupe_sine
+El valor 2 para el crimen hupe_sine
+El valor 3 para el crimen hupe_sine
+El valor 4 para el crimen hupe_sine
+El valor 5 para el crimen hupe_sine
+El valor 6 para el crimen hupe_sine
+El valor 7 para el crimen hupe_sine
+El valor 8 para el crimen hupe_sine
+El valor 9 para el crimen hupe_sine
+El valor 10 para el crimen hupe_sine
+El valor 1 para el crimen hure_sine
+El valor 2 para el crimen hure_sine
+El valor 3 para el crimen hure_sine
+El valor 4 para el crimen hure_sine
+El valor 5 para el crimen hure_sine
+El valor 6 para el crimen hure_sine
+El valor 7 para el crimen hure_sine
+El valor 8 para el crimen hure_sine
+El valor 9 para el crimen hure_sine
+El valor 10 para el crimen hure_sine
+El valor 1 para el crimen homi_sine
+El valor 2 para el crimen homi_sine
+El valor 3 para el crimen homi_sine
+El valor 4 para el crimen homi_sine
+El valor 5 para el crimen homi_sine
+El valor 6 para el crimen homi_sine
+El valor 7 para el crimen homi_sine
+El valor 8 para el crimen homi_sine
+El valor 9 para el crimen homi_sine
+El valor 10 para el crimen homi_sine
+El valor 1 para el crimen tota_sine
+El valor 2 para el crimen tota_sine
+El valor 3 para el crimen tota_sine
+El valor 4 para el crimen tota_sine
+El valor 5 para el crimen tota_sine
+El valor 6 para el crimen tota_sine
+El valor 7 para el crimen tota_sine
+El valor 8 para el crimen tota_sine
+El valor 9 para el crimen tota_sine
+El valor 10 para el crimen tota_sine
+
+. 
+. label var homi_sine "Homicidios* - Tasa X 100. habitantes"
+
+. label var amen_sine "Amenazas* - Tasa X 100. habitantes"
+
+. label var deli_sine "Delitos sexuales* - Tasa X 100.000 habitantes"
+
+. label var lesi_sine "Lesiones personales* - Tasa X 100.000 habitantes"
+
+. label var hupe_sine "Hurto a persona* - Tasa X 100.000 habitantes"
+
+. label var hure_sine "Hurto a residencias* - Tasa X 100.000 habitantes"
+
+. label var tota_sine "Crímenes totales* - Tasa X 100.000 habitantes"
+
+. 
+. foreach x of global sine_criemes {
+  2. coefplot (`x'_1_distancia, rename((1) = "Primer grupo")  \                    ///
+>                   `x'_2_distancia, rename((1) = "Segundo grupo") \                    ///
+>                   `x'_3_distancia, rename((1) = "Tercer grupo")  \                    ///
+>                   `x'_4_distancia, rename((1) = "Cuarto grupo")  \                    ///
+>                   `x'_5_distancia, rename((1) = "Quinto grupo")  \                    ///
+>                   `x'_6_distancia, rename((1) = "Sexto grupo")  \                     ///
+>                   `x'_7_distancia, rename((1) = "Séptimo grupo")  \                   ///
+>                   `x'_8_distancia, rename((1) = "Octavo grupo")  \                    ///
+>                   `x'_9_distancia, rename((1) = "Noveno grupo")  \                    ///
+>                   `x'_10_distancia, rename((1) = "Decimo grupo") label("Amenazas")) , ///
+>                   ciopts(recast(rcap)) msymbol(O) vertical                            ///
+>                   ylabel(, labsize(small) nogrid) xlabel(, labsize(small) angle(vertical) nogrid) ///
+>                   mlcolor(black)  title("Efectos por grupos de distancia a la frontera") ///
+>                   yscale(lc(black)) xscale(lc(black)) name(graf_`x',replace)          ///
+>                   graphregion(color(white)) yline(0, lcolor(maroon))                  ///
+>                   subtitle("`: var label `x''", size(medium))                         ///
+>                   caption("*:Transformación Seno Hiperbólica Inversa",size(small))
+  3. graph export "grafica/`x'.pdf", as(pdf) name("graf_`x'") replace
+  4. }
+(file /Users/jorgeochoa/OneDrive - Universidad de los andes/PEG/Econometria avanzada/Proyecto/Bases de datos/dta/grafica/amen_sine.pdf written in PDF format)
+(file /Users/jorgeochoa/OneDrive - Universidad de los andes/PEG/Econometria avanzada/Proyecto/Bases de datos/dta/grafica/deli_sine.pdf written in PDF format)
+(file /Users/jorgeochoa/OneDrive - Universidad de los andes/PEG/Econometria avanzada/Proyecto/Bases de datos/dta/grafica/lesi_sine.pdf written in PDF format)
+(file /Users/jorgeochoa/OneDrive - Universidad de los andes/PEG/Econometria avanzada/Proyecto/Bases de datos/dta/grafica/hupe_sine.pdf written in PDF format)
+(file /Users/jorgeochoa/OneDrive - Universidad de los andes/PEG/Econometria avanzada/Proyecto/Bases de datos/dta/grafica/hure_sine.pdf written in PDF format)
+(file /Users/jorgeochoa/OneDrive - Universidad de los andes/PEG/Econometria avanzada/Proyecto/Bases de datos/dta/grafica/homi_sine.pdf written in PDF format)
+(file /Users/jorgeochoa/OneDrive - Universidad de los andes/PEG/Econometria avanzada/Proyecto/Bases de datos/dta/grafica/tota_sine.pdf written in PDF format)
+
+. cap drop *_distancia
+
+. cap log close

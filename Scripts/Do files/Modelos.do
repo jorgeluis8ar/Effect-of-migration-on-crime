@@ -3,6 +3,7 @@ set more off, perm
 cls
 
 cd "/Users/jorgeochoa/OneDrive - Universidad de los andes/PEG/Econometria avanzada/Proyecto/Bases de datos/dta/"
+cap log using "resultados/JorgeOchoaRincon.log", append
 
 use "base final.dta",clear
 
@@ -191,3 +192,6 @@ coefplot (`x'_1_distancia, rename((1) = "Primer grupo")  \                    //
 graph export "grafica/`x'.pdf", as(pdf) name("graf_`x'") replace
 }
 cap drop *_distancia
+cap log close
+translate "resultados/JorgeOchoaRincon.log" ///
+		  "resultados/JorgeOchoaRincon.pdf", replace

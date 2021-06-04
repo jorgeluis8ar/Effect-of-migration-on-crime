@@ -3,7 +3,7 @@ set more off, perm
 cls
 
 cd "~/OneDrive - Universidad de los andes/PEG/Econometria avanzada/Proyecto/Bases de datos"
-
+cap log using "dta/resultados/JorgeOchoaRincon.log", append
 import delimited "csv/migracion ibanezrozo.csv", delimiter(comma) varnames(1) encoding(UTF-8) stringcols(4 7) clear 
 
 drop v1
@@ -98,4 +98,4 @@ label var year_month "Identificador mes año R"
 merge m:1 cod_dane using "dta/censo 2005.dta", gen(m4)
 drop m4
 save "dta/base final.dta",replace
-
+cap log close

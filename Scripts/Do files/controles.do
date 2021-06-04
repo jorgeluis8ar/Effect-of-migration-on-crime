@@ -3,7 +3,7 @@ set more off, perm
 cls
 
 cd "~/OneDrive - Universidad de los andes/PEG/Econometria avanzada/Proyecto/Bases de datos"
-
+cap log using "dta/resultados/JorgeOchoaRincon.log", replace
 use "/Users/jorgeochoa/Downloads/PANEL_CARACTERISTICAS_GENERALES(2020).dta", clear
 
 keep coddepto codmpio  depto municipio ano pobl_tot altura discapital disbogota pib_agricola pib_industria pib_servicios pib_total gini pobreza nbi* IPM ipm_serv_pinf_p ipm_tdep_p ipm_accsalud_p gpc 
@@ -341,3 +341,4 @@ drop if cod_dane == "."
 drop buen_*
 
 save "dta/controles cede.dta",replace
+cap log close

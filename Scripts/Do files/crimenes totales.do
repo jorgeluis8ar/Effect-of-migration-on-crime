@@ -3,7 +3,7 @@ set more off, perm
 cls
 
 cd "/Users/jorgeochoa/OneDrive - Universidad de los andes/PEG/Econometria avanzada/Proyecto/Bases de datos"
-
+cap log using "dta/resultados/JorgeOchoaRincon.log", append	
 import delimited "csv/crimenes total.csv",clear
 
 replace amenazas = "." if amenazas =="NA"
@@ -39,3 +39,4 @@ label var year "Año de ocurrencia"
 label var mes "Mes de ocurrencia"
 
 save "dta/crimenes totales.dta",replace
+cap log close
